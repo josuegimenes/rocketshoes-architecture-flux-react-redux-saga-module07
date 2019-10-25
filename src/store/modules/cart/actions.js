@@ -1,6 +1,15 @@
-export function addToCart(product) {
+// Action ouvida pelo Saga
+export function addToCartRequest(id) {
   return {
-    type: '@cart/ADD',
+    type: '@cart/ADD_REQUEST',
+    id,
+  };
+}
+
+// Action disparada pelo Saga
+export function addToCartSuccess(product) {
+  return {
+    type: '@cart/ADD_SUCCESS',
     product,
   };
 }
