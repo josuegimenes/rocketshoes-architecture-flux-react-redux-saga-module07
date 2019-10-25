@@ -1,4 +1,5 @@
 import { call, select, put, all, takeLatest } from 'redux-saga/effects';
+import { toast } from 'react-toastify';
 
 import api from '../../../services/api';
 import { formatPrice } from '../../../util/format';
@@ -27,7 +28,11 @@ function* addToCart({ id }) {
 
   // Checa quantidade no estoque
   if (amount > stockAmount) {
-    console.tron.warn('ERRO');
+    const { title } = productExists;
+
+    toast.error(
+      `O produto ${title} possui apenas ${stockAmount} itens no estoque!`
+    );
     return;
   }
 
