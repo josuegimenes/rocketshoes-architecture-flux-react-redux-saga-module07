@@ -17,9 +17,21 @@ function* addToCart({ id }) {
     state.cart.find(p => p.id === id)
   );
 
-  if (productExists) {
-    const amount = productExists.amount + 1;
+  // Consulta estoque
+  const stock = yield call(api.get, `/stock/${id}`);
 
+  const stockAmount = stock.data.amount;
+  const currencyAmount = productExists ? productExists.amount : 0;
+
+  const amount = currencyAmount + 1;
+
+  // Checa quantidade no estoque
+  if (amount > stockAmount) {
+    console.tron.warn('ERRO');
+    return;
+  }
+
+  if (productExists) {
     yield put(updateAmount(id, amount));
   } else {
     /**
