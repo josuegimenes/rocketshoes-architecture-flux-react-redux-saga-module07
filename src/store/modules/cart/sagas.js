@@ -2,6 +2,7 @@ import { call, select, put, all, takeLatest } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
 import api from '../../../services/api';
+import history from '../../../services/history';
 import { formatPrice } from '../../../util/format';
 
 import { addToCartSuccess, updateAmountSuccess } from './actions';
@@ -52,6 +53,10 @@ function* addToCart({ id }) {
     };
 
     yield put(addToCartSuccess(data));
+
+    /* O history só faz o redirecionamento depois de finalizar a chamada
+    api acima */
+    history.push('/cart');
   }
 }
 

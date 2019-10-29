@@ -29,6 +29,12 @@ class Home extends Component {
     const { addToCartRequest } = this.props;
 
     addToCartRequest(id);
+
+    /* Após adicionar produto redireciona para o carrinho, porém, caso
+      addToCartRequest acima demorar ou der algum problema, o redirecionamento
+      abaixo será executado mesmo assim. Não recomendável! Então, faremos
+      no Saga e usaremos a biblioteca History */
+    // this.props.history.push('/cart');
   };
 
   render() {
